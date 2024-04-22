@@ -1,11 +1,12 @@
 import { Avatar, Box, Button, Card, Tab, Tabs } from '@mui/material';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import img from "../static/Logo Harshil.jpeg";
 import PostCard from '../../components/Post/PostCard';
 import UserReelCard from '../../components/Reels/UserReelCard';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileModal from './ProfileModal';
+import { getAllPostAction } from '../../Redux/Post/post.action';
 
 const tabs=[
   {value:"post",name:"Post"},
@@ -13,11 +14,15 @@ const tabs=[
   {value:"saved",name:"Saved"},
   {value:"repost",name:"repost"},
 ]
-const posts=[1,1,1,1];
+// const posts=[1,1,1,1];
 const reels=[1,1,1,1];
 const savedPost=[1,1,1,1];
 
 const Profile = () => {
+  const dispatch=useDispatch();
+  const {post}=useSelector(store=>store);
+console.log("POSTSSSS",post);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -30,6 +35,11 @@ const Profile = () => {
     setValue(newValue);
   };
   const { id } = useParams();
+
+  
+  useEffect(()=>{
+    dispatch(getAllPostAction())
+  },[post.newComment])
   return (
     <Card className='my-10 w-[70%]'>
 
@@ -76,14 +86,15 @@ const Profile = () => {
     </Box>
     <div className="flex justify-center">
       {value === "post"? <div className='space-y-5 w-[70%] my-10' >
-{posts.map((item)=> <div className='border border-slate-100 rounded-md'>
+{/* {posts.map((item)=> <div className='border border-slate-100 rounded-md'>
   <PostCard />
-</div>)}
+</div>)} */}
+      {post.posts.map((item) => <PostCard item={item} />)}
       </div>:value==="reels"? <div className='flex flex-wrap gap-2 justify-center my-10'>
       {reels.map((item)=><UserReelCard />)}
       </div>:value==="saved"? <div className='space-y-5 w-[70%] my-10' >
-{savedPost.map((item)=> <div className='border border-slate-100 rounded-md'>
-  <PostCard />
+{post.posts.map((item)=> <div className='border border-slate-100 rounded-md'>
+  <PostCard item={item} />
 </div>)}
       </div>:(
         <div>Repost</div>

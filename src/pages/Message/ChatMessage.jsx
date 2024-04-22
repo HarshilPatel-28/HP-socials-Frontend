@@ -2,7 +2,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const ChatMessage = ({item}) => {
-  const {message,auth}=useSelector(store=>store)
+  const message = useSelector(store => store.message);
+const auth = useSelector(store => store.auth);
+
 
   const isReqUserMessage=auth.user?.id===item.user?.id
   return (

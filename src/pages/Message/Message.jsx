@@ -25,7 +25,7 @@ const Message = () => {
 
   useEffect(()=>{
     dispatch(getAllChats())
-  },[])
+  },[messages])
 
   const handleSelectImage= async(e)=>{
     setLoading(true);
@@ -75,7 +75,7 @@ const Message = () => {
 
   const sendMessageToServer = (newMessage)=>{
     if (stompClient && newMessage) {
-      stompClient.send(`/app/chat/${currentChat?.id.toString()}`,{},JSON.stringify(newMessage))
+      stompClient.send(`/app/chat/${currentChat?.id.toString()}`,{},JSON.stringify(message))
     }
   }
   const onMessageRecieve=(payload)=>{
@@ -88,12 +88,15 @@ const Message = () => {
     <div>
       <Grid container className='h-screen overflow-y-hidden'>
         <Grid className='px-5' item xs={3}>
+         
           <div className="flex h-full justify-between space-x-2">
 <div className='w-full'>
+         <a href="/">
 <div className="flex space-x-4 items-center py-5">
               <WestIcon />
               <h1 className='text-xl font-bold'>Home</h1>
             </div>
+            </a>
 
             <div className='h-[83vh]'>
               <div className="">
@@ -122,7 +125,7 @@ const Message = () => {
 
         <Grid className='h-full' item xs={9}>
         {currentChat ?  <div>
-            <div className="flex justify-between items-center border-l p-5">
+            <div className="flex justify-between items-center border-l p-2">
               <div className="flex items-center space-x-3">
                 <Avatar src='https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600' />
                 <p>{auth.user?.id===currentChat.users[0]?.id?
@@ -153,6 +156,8 @@ const Message = () => {
                 if (e.key==="Enter"&&e.target.value) {
                   handleCreateMessage(e.target.value)
                   setSelectedImage('')
+                  e.target.value=''
+                  
                 }
               }}
               className='bg-transparent border border-[#3b4054] rounded-full w-[90%] py-3 px-5'

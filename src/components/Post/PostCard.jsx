@@ -57,7 +57,7 @@ const PostCard = ({item}) => {
         image={item.image}
         alt="Paella dish"
       /> */}
-      <img className='w-full h-[30rem] object-cover object-top' src={item?.image} alt="" />
+      <img className='w-full h-[50rem] object-cover object-top' src={item?.image} alt="" />
             <CardContent>
         <Typography variant="body2" color="text.secondary">
           {item?.caption}

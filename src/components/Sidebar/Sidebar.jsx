@@ -3,7 +3,7 @@ import { navigationMenu } from './SidebarNavigation'
 import { Avatar, Button, Card, Divider, Menu, MenuItem } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const {auth}=useSelector(store=>store)
@@ -15,6 +15,9 @@ const Sidebar = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    localStorage.removeItem('jwt');
+    redirect('http://localhost:3000/')
+    window.location.reload();
   };
   const handleNavigate = (item)=>{
     if(item.title==="Profile"){

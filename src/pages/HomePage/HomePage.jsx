@@ -21,6 +21,7 @@ const HomePage = () => {
   // },[jwt])
 console.log("auth",auth);
 
+
   return (
     <div className='px-20'>
       <Grid container spacing={0}>

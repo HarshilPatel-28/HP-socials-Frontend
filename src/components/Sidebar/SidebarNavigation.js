@@ -16,12 +16,12 @@ export const navigationMenu=[
     {
         title:"Reels",
         icon:<ExploreIcon />,
-        path:"/reels"
+        path:"/"
     },
     {
         title:"Create Reels",
         icon:<ControlPointIcon />,
-        path:"/create-reels"
+        path:"/"
     },
     {
         title:"Notifications",
